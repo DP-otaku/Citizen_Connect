@@ -1,0 +1,90 @@
+@import './Login.css';
+
+.register-page {
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+  background-color: var(--bg-secondary);
+}
+
+.register-card {
+  width: 100%;
+  max-width: 450px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 2.5rem 2rem;
+  z-index: 10;
+  border: 1px solid var(--border-light);
+}
+
+/* Password Strength Indicator */
+.password-strength {
+  margin-top: 8px;
+}
+
+.password-strength__bar {
+  display: flex;
+  gap: 4px;
+  height: 4px;
+  margin-bottom: 4px;
+}
+
+.password-strength__segment {
+  flex: 1;
+  background-color: var(--border-light);
+  border-radius: 2px;
+  transition: all var(--transition-base);
+}
+
+.password-strength__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Form Hints */
+.form-hint {
+  font-size: 0.75rem;
+  margin-top: 4px;
+  display: block;
+}
+
+.form-hint--error {
+  color: var(--color-danger);
+}
+
+/* Success Card Override */
+.register-card__success {
+  text-align: center;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-md);
+}
+
+.register-card__success-icon {
+  margin-bottom: 0.5rem;
+}
+
+.register-card__login-link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.register-card__login-link:hover {
+  background: #1d4ed8;
+  color: white;
+  text-decoration: none;
+}

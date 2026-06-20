@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: citizen_connect_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'db@2005$$qaws'
+      MYSQL_DATABASE: 'citizen_connect'
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: citizen_connect_backend
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/citizen_connect?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=db@2005$$qaws
+      - AI_SERVICE_URL=http://ai:8000
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: citizen_connect_frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  ai:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    container_name: citizen_connect_ai
+    restart: on-failure
+    ports:
+      - "8000:8000"
+    environment:
+      - GROQ_API_KEY=your_groq_api_key_here
+    volumes:
+      - ./ai-service:/app
+
+volumes:
+  db_data:
